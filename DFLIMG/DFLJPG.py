@@ -281,13 +281,6 @@ class DFLJPG(object):
     def has_xseg_mask(self):
         return self.dfl_dict.get('xseg_mask',None) is not None
 
-    def get_xseg_mask_compressed(self):
-        mask_buf = self.dfl_dict.get('xseg_mask',None)
-        if mask_buf is None:
-            return None
-
-        return mask_buf
-        
     def get_xseg_mask(self):
         mask_buf = self.dfl_dict.get('xseg_mask',None)
         if mask_buf is None:
@@ -308,7 +301,7 @@ class DFLJPG(object):
         mask_a = imagelib.normalize_channels(mask_a, 1)
         img_data = np.clip( mask_a*255, 0, 255 ).astype(np.uint8)
 
-        data_max_len = 8192
+        data_max_len = 4096
 
         ret, buf = cv2.imencode('.png', img_data)
 
